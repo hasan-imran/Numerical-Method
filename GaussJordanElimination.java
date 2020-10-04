@@ -1,8 +1,9 @@
-
 import java.util.Scanner;
 
 //Main class
 public class GaussJordanElimination {
+
+    private static final double approximateValue = 0.000001;
 
     public static void main(String[] args) {
 
@@ -52,9 +53,9 @@ public class GaussJordanElimination {
 
             //Pivot can not be 0. So checking if pivot is zero or not.
             //If 0, then we have to interchange this row with some other row, in which pivot won't be 0
-            if(matrix[k][k] == 0){
+            if(Math.abs(matrix[k][k]) < approximateValue){
                 for(int j = k+1; j<n; j++){
-                    if(matrix[j][k] != 0){
+                    if(Math.abs(matrix[j][k]) > approximateValue){
                         //Interchanging rows
                         double[] temp = matrix[k];
                         matrix[k] = matrix[j];
@@ -72,7 +73,7 @@ public class GaussJordanElimination {
             //Pivot (diagonal element)
             double pivot = matrix[k][k];
 
-            if(pivot == 0) return null;
+            if(Math.abs(pivot) < approximateValue) return null;
 
             //ROW(k) = ROW(k)/pivot (To make diagonal element 1)
             for (int j = k; j < n; j++) {
@@ -89,7 +90,7 @@ public class GaussJordanElimination {
                 if (i == k) continue;
 
                 //If an element is already 0, we don't need to make it 0
-                if (matrix[i][k] == 0) continue;
+                if (Math.abs(matrix[i][k]) <approximateValue) continue;
 
                 //Store the value of the pivot column element
                 double colValue = matrix[i][k];
@@ -107,4 +108,3 @@ public class GaussJordanElimination {
         return constants;
     }
 }
-
